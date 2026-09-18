@@ -1,0 +1,82 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'plugins/*/v*'
+
+permissions:
+  contents: read
+
+jobs:
+  release-plugin:
+    name: release ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve plugin directory and version from tag
+        id: plugin
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          PLUGIN_DIR="$(dirname "$TAG")"
+          VERSION="$(basename "$TAG")"
+          VERSION="${VERSION#v}"
+          echo "dir=$PLUGIN_DIR" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Releasing plugin dir '$PLUGIN_DIR' at version '$VERSION'"
+
+      - name: Verify tag version matches plugin pom version
+        shell: bash
+        run: |
+          POM_VERSION="$(mvn -B -ntp -q -f "${{ steps.plugin.outputs.dir }}/pom.xml" \
+            help:evaluate -Dexpression=project.version -DforceStdout)"
+          echo "pom version: $POM_VERSION"
+          if [[ "$POM_VERSION" != "${{ steps.plugin.outputs.version }}" ]]; then
+            echo "FAIL: tag version '${{ steps.plugin.outputs.version }}' != pom version '$POM_VERSION'"
+            exit 1
+          fi
+          if [[ "$POM_VERSION" == *-SNAPSHOT ]]; then
+            echo "FAIL: refusing to release a SNAPSHOT version"
+            exit 1
+          fi
+
+      - name: Setup Java and signing
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+          cache: maven
+          server-id: LnYo-Cly
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
+
+      - name: Publish shared parent if missing from Central
+        shell: bash
+        env:
+          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          PARENT_VERSION="$(mvn -B -ntp -q -N help:evaluate \
+            -Dexpression=project.version -DforceStdout)"
+          PARENT_PATH="io/github/lnyo-cly/community/ai4j-plugins-parent/${PARENT_VERSION}"
+          PARENT_URL="https://repo1.maven.org/maven2/${PARENT_PATH}/ai4j-plugins-parent-${PARENT_VERSION}.pom"
+          if curl -fsI "$PARENT_URL" > /dev/null; then
+            echo "Parent $PARENT_VERSION already on Central; skipping."
+          else
+            echo "Parent $PARENT_VERSION not on Central; publishing."
+            mvn -B -ntp -N -Prelease deploy
+          fi
+
+      - name: Publish plugin to Maven Central
+        env:
+          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: mvn -B -ntp -f "${{ steps.plugin.outputs.dir }}/pom.xml" -Prelease deploy

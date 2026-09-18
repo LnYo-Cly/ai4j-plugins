@@ -2,6 +2,17 @@
 
 Optional AI4J extension plugin that adds a You.com web search tool for agents.
 
+Community-maintained in [LnYo-Cly/ai4j-plugins](https://github.com/LnYo-Cly/ai4j-plugins);
+migrated from [LnYo-Cly/ai4j#277](https://github.com/LnYo-Cly/ai4j/pull/277).
+
+```xml
+<dependency>
+  <groupId>io.github.lnyo-cly.community</groupId>
+  <artifactId>ai4j-plugin-you-search</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
 ## What It Provides
 
 - Extension id: `you-search`
@@ -80,7 +91,7 @@ ai4j /mcp add you-free --type streamable_http --url "https://api.you.com/mcp?pro
 ## Verify
 
 ```bash
-mvn -pl ai4j-plugin-you-search -am -DskipTests=false test
+mvn -f plugins/you-search/pom.xml test
 ```
 
 Live search requires `YDC_API_KEY`; without it the offline tests still pass and the tool
