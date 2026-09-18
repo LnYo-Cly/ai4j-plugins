@@ -35,6 +35,8 @@ plugin never bumps the others. Community plugins are intentionally **not** part 
 
 ## Using a plugin
 
+Maven:
+
 ```xml
 <dependency>
   <groupId>io.github.lnyo-cly.community</groupId>
@@ -43,10 +45,46 @@ plugin never bumps the others. Community plugins are intentionally **not** part 
 </dependency>
 ```
 
+Gradle:
+
+```groovy
+implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.0'
+```
+
+Java — discover, enable, expose:
+
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("you-search")
         .exposeTool("you_web_search");
+
+Agent agent = Agents.react()
+        .modelClient(modelClient)
+        .model("glm-4.5-flash")
+        .extensions(registry)
+        .build();
+```
+
+Spring Boot (`ai4j-spring-boot-starter`) — same gates via configuration:
+
+```yaml
+ai:
+  extensions:
+    enabled:
+      - you-search
+    tools:
+      expose:
+        - you_web_search
+```
+
+CLI — inspect a plugin before trusting it:
+
+```bash
+ai4j-cli extension list
+ai4j-cli extension inspect you-search --runtime
+ai4j-cli extension validate you-search
+ai4j-cli extension check you-search --enable --expose-tool you_web_search --strict
+ai4j-cli extension run --enable you-search --allow-command you-search you-search "latest Java LTS"
 ```
 
 Nothing is enabled by classpath presence alone — the host must explicitly `enable(...)`
@@ -54,6 +92,31 @@ and `exposeTool(...)`. See the
 [plugin packages doc](https://github.com/LnYo-Cly/ai4j/tree/main/docs-site/docs/extending/plugins/plugin-packages.md)
 for the full gate semantics, including `requireExplicitResourceActivation()` and the
 Spring Boot / CLI configuration paths.
+
+## Compatibility
+
+Plugins in this repo compile against a **released** `ai4j-extension-api` baseline (currently
+`2.4.2`, pinned once in the shared parent). That baseline is the plugin's **minimum ai4j
+version**:
+
+| Plugin | Minimum ai4j version |
+|---|---|
+| `ai4j-plugin-you-search` 0.1.0 | ai4j ≥ 2.4.2 |
+
+Rules that make this safe:
+
+- **Host version wins.** Your application's own `ai4j` / `ai4j-extension-api` version
+  overrides the plugin's compile-time baseline at resolution time. Running ai4j 2.4.3+
+  needs **no plugin rebuild** — the extension SPI is the stable contract.
+- **Older hosts are the risk.** If your app runs ai4j older than the plugin's baseline,
+  the plugin may reference SPI surface the host doesn't have. Check the minimum-version
+  column before adding a plugin.
+- **Baseline bumps are deliberate.** When the shared parent raises
+  `ai4j-extension-api.version`, every plugin's minimum version moves — that's announced in
+  the index table, not silently inherited by users.
+- Plugins only depend on `ai4j-extension-api` (the SPI contract), not the full `ai4j`
+  runtime — they stay usable from `ai4j`, `ai4j-agent`, `ai4j-coding`, and the Spring Boot
+  starter alike.
 
 ## Submitting a plugin
 
