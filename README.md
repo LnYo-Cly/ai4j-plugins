@@ -10,9 +10,11 @@ AI4J SDK 官方维护的社区插件索引：统一收录、统一审核、统�
 [English README](README-EN.md)
 
 AI4J 插件是普通的 Maven jar：通过 `ServiceLoader` 发现，由 `ExtensionRegistry` 的
-enable / allow / expose 三段门禁控制，**引入依赖不等于启用**。本仓库由 AI4J 项目官方维护：
-插件经 review 收录、CI 验证，以 `io.github.lnyo-cly.community` groupId 统一发布到
-Maven Central —— 对用户是可发现、可审计的插件入口，对作者则无需自建发布管线。
+enable / allow / expose 三段门禁控制，**引入依赖不等于启用**。插件面向**所有基于 AI4J
+构建的 agent 宿主** —— `ai4j`、`ai4j-agent`、`ai4j-coding`、Spring Boot starter，以及开发者
+自己的 agent 应用，不限于官方 CLI / TUI。本仓库由 AI4J 项目官方维护：插件经 review 收录、
+CI 验证，以 `io.github.lnyo-cly.community` groupId 统一发布到 Maven Central —— 对用户是
+可发现、可审计的插件入口，对作者则无需自建发布管线。
 
 ## 插件目录
 
@@ -156,6 +158,9 @@ plugins/
 - `ExtensionValidator` 报告 `pass`（脚手架测试已覆盖；用
   `ai4j-cli extension init <artifact> --id <extension-id>` 在 `plugins/` 内生成骨架）
 - `apply(...)` 不做网络、IO、读密钥或阻塞操作 —— 只做注册
+- 宿主无关性：插件不得假设宿主有终端、UI 或交互面（禁用 `System.console`、GUI、直接阻塞式
+  用户提问）。需要用户输入时走 tool/approval 机制，由宿主决定如何呈现 —— 插件要对
+  CLI、TUI、Spring Boot 服务、无头 worker 同样可用
 - 密钥只走环境变量或宿主配置，绝不硬编码；manifest 声明 `permissions`
 - tool / command / skill / prompt 命名遵守
   [命名规则](https://github.com/LnYo-Cly/ai4j/tree/main/docs-site/docs/extending/plugins/plugin-packages.md)
