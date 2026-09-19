@@ -1,0 +1,33 @@
+name: java-regression
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: plugin
+      - uses: actions/checkout@v4
+        with:
+          repository: LnYo-Cly/ai4j
+          ref: main
+          path: ai4j-sdk
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+          cache: maven
+      - run: mvn -B -ntp -Droot.publish.skip=false -pl ai4j-extension-api -am -DskipTests install
+        working-directory: ai4j-sdk
+      - run: mvn -B -ntp -DskipTests=false test
+        working-directory: plugin
