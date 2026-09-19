@@ -19,9 +19,10 @@ Spring Boot starter 只是宿主的几种形态之一，插件必须对任意自
 
 ## 插件目录
 
-| 插件 | Extension id | 能力 | 说明 | 最低 ai4j | 最新版 | Maintainer | 状态 |
-|---|---|---|---|---|---|---|---|
-| [you-search](plugins/you-search) | `you-search` | tool + command + skill + prompt | You.com 网络搜索 | 2.4.2 | 0.1.0 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
+| 插件 | Extension id | 层级 | 能力 | 说明 | 最低 ai4j | 最新版 | Maintainer | 状态 |
+|---|---|---|---|---|---|---|---|---|
+| [dynamic-workflow](plugins/dynamic-workflow) | `dynamic-workflow` | official | tool + command + skill + prompt | 宿主中介的动态工作流编排 | 2.4.2 | 0.1.0 | [@LnYo-Cly](https://github.com/LnYo-Cly) | active |
+| [you-search](plugins/you-search) | `you-search` | community | tool + command + skill + prompt | You.com 网络搜索 | 2.4.2 | 0.1.0 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
 
 > 「最低 ai4j」= 插件编译时依赖的 `ai4j-extension-api` 基线，规则见[版本与兼容性](#版本与兼容性)。
 
@@ -127,13 +128,10 @@ ai4j-cli extension run --enable you-search --allow-command you-search you-search
 
 ## 插件归属
 
-三层刻意分工，不是「官方插件在别处」：
-
-| 归属 | 插件 | 定位 |
+| 归属 | 内容 | 定位 |
 |---|---|---|
-| 本仓 `io.github.lnyo-cly.community` | you-search 等社区插件 | 社区提交、统一审核、统一 Central 发版 |
+| 本仓 `io.github.lnyo-cly.community` | 全部可分发插件 | `io.github.lnyo-cly` 只留给 SDK release train；本仓制品统一用 `.community` groupId，维护层级看索引表「层级」列与 pom `<developers>` |
 | [ai4j](https://github.com/LnYo-Cly/ai4j) reactor | `ai4j-plugin-ask-user` | 官方样例，同时充当 extension-api 的契约一致性回归（同 reactor 编译即验证） |
-| 独立仓库 | [`ai4j-plugin-dynamic-workflow`](https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow) | 官方旗舰参考，独立 groupId / 版本 / 发版节奏 |
 
 ## 仓库结构
 
@@ -167,7 +165,11 @@ plugins/
   [命名规则](https://github.com/LnYo-Cly/ai4j/tree/main/docs-site/docs/extending/plugins/plugin-packages.md)
 - 运行时依赖默认只允许 `ai4j-extension-api` + JDK；引入第三方库（HTTP client、JSON 解析等）
   需在 PR 中说明理由
-- 有具名 maintainer 承诺跟进上游 API 变更；maintainer 失联的插件会在索引中标记 `deprecated`
+- 有具名 maintainer 承诺跟进上游 API 变更，署名落在索引表、插件 README 与 pom
+  `<developers>`；maintainer 失联的插件会在索引中标记 `deprecated`
+- 命名规则：extension-id / 目录 / artifactId 后缀全仓唯一，须带提供者、产品或实现特征
+  限定词，裸能力域名（`search`、`workflow` 等）拒收；厂商品牌名需厂商关联证明，否则限定名
+  消歧；与现有插件同域靠限定名共存，差异小的优先改进现有插件
 - 插件 README 需写明：坐标、extension id、工具/资源清单、所需环境变量、最低 ai4j 版本
 
 要求 Java 8 兼容。共享 parent 通过 `ai4j-extension-api.version` 统一 pin 契约版本，

@@ -1,14 +1,16 @@
 # ai4j-plugin-dynamic-workflow
 
-[![Java Regression](https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow/actions/workflows/java-regression.yml/badge.svg)](https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow/actions/workflows/java-regression.yml)
+[![Validate](https://github.com/LnYo-Cly/ai4j-plugins/actions/workflows/validate.yml/badge.svg)](https://github.com/LnYo-Cly/ai4j-plugins/actions/workflows/validate.yml)
 [![Java 8](https://img.shields.io/badge/Java-8%2B-blue.svg)](pom.xml)
 [![AI4J](https://img.shields.io/badge/AI4J-extension--api-7c3aed.svg)](https://github.com/LnYo-Cly/ai4j)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](../../LICENSE)
 
 > **Claude Code-style dynamic workflows for AI4J.**
 > Turn one prompt into a host-approved workflow script that can fan out across subagents, phases, and parallel checks — while the Java plugin stays small, auditable, and safe.
 
 `ai4j-plugin-dynamic-workflow` adds a `workflow` tool, a `/workflow` command, a Skill, and a Prompt to AI4J's extension ecosystem. The plugin does **not** execute JavaScript, spawn agents, touch git worktrees, or call providers. It emits a stable JSON envelope so the AI4J host can parse, approve, schedule, cancel, persist, or reject the request.
+
+Maintainer: [@LnYo-Cly](https://github.com/LnYo-Cly) · official tier
 
 Built for:
 
@@ -22,19 +24,16 @@ Built for:
 
 ```xml
 <dependency>
-  <groupId>io.github.lnyo-cly</groupId>
+  <groupId>io.github.lnyo-cly.community</groupId>
   <artifactId>ai4j-plugin-dynamic-workflow</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
-The plugin depends on `io.github.lnyo-cly:ai4j-extension-api:2.4.0`.
-Until that API artifact is available from your configured Maven repository, install it from an AI4J SDK checkout first:
-
-```bash
-git clone https://github.com/LnYo-Cly/ai4j ../ai4j-sdk
-mvn -f ../ai4j-sdk/pom.xml -Droot.publish.skip=false -pl ai4j-extension-api -am -DskipTests install
-```
+The plugin depends on `io.github.lnyo-cly:ai4j-extension-api` (baseline managed by the
+shared parent, currently `2.4.2`, resolved from Maven Central). It lives in
+[LnYo-Cly/ai4j-plugins](https://github.com/LnYo-Cly/ai4j-plugins) under
+`plugins/dynamic-workflow/`.
 
 ## Enable
 
@@ -190,7 +189,6 @@ That split keeps the extension safe by default: plugin installation cannot grant
 | `src/main/resources/prompts/dynamic-workflow-script.md` | Prompt guidance for deterministic workflow script generation. |
 | `examples/repository-audit.workflow.js` | Copyable workflow script example for host/runtime experiments. |
 | `src/test/java/.../DynamicWorkflowUsageDemo.java` | Complete Java envelope demo compiled by `mvn test`. |
-| `.github/workflows/java-regression.yml` | Java 8 Maven regression gate. |
 
 ## Current boundary
 
@@ -298,4 +296,4 @@ mvn -Plive-ai4j-agent-tests "-DskipTests=false" "-Dtest=MinimaxAnthropicWorkflow
 
 ## License
 
-Apache-2.0 — see [LICENSE](LICENSE).
+Apache-2.0 — see [LICENSE](../../LICENSE).

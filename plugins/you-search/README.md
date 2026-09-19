@@ -5,6 +5,8 @@ Optional AI4J extension plugin that adds a You.com web search tool for agents.
 Community-maintained in [LnYo-Cly/ai4j-plugins](https://github.com/LnYo-Cly/ai4j-plugins);
 migrated from [LnYo-Cly/ai4j#277](https://github.com/LnYo-Cly/ai4j/pull/277).
 
+Maintainer: [@mouse-value-add](https://github.com/mouse-value-add) · community tier
+
 ```xml
 <dependency>
   <groupId>io.github.lnyo-cly.community</groupId>

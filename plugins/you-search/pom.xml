@@ -18,6 +18,13 @@
     <name>ai4j-plugin-you-search</name>
     <description>AI4J extension plugin that adds an optional You.com web search tool for agents.</description>
 
+    <developers>
+        <developer>
+            <id>mouse-value-add</id>
+            <url>https://github.com/mouse-value-add</url>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>io.github.lnyo-cly</groupId>

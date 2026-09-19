@@ -50,6 +50,7 @@
     </properties>
 
     <modules>
+        <module>plugins/dynamic-workflow</module>
         <module>plugins/you-search</module>
     </modules>
 

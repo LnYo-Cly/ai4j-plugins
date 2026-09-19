@@ -4,34 +4,31 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.lnyo-cly</groupId>
+    <parent>
+        <groupId>io.github.lnyo-cly.community</groupId>
+        <artifactId>ai4j-plugins-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
     <artifactId>ai4j-plugin-dynamic-workflow</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>ai4j-plugin-dynamic-workflow</name>
     <description>AI4J dynamic workflow extension plugin for host-mediated workflow orchestration.</description>
-    <url>https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow</url>
+    <url>https://github.com/LnYo-Cly/ai4j-plugins/tree/main/plugins/dynamic-workflow</url>
 
-    <licenses>
-        <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <scm>
-        <url>https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow</url>
-        <connection>scm:git:https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow.git</connection>
-        <developerConnection>scm:git:https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow.git</developerConnection>
-    </scm>
+    <developers>
+        <developer>
+            <id>cly</id>
+            <name>LnYo-Cly</name>
+            <url>https://github.com/LnYo-Cly</url>
+        </developer>
+    </developers>
 
     <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ai4j.version>2.4.0</ai4j.version>
+        <ai4j-agent.version>2.4.2</ai4j-agent.version>
         <live.provider.test.category>io.github.lnyocly.ai4j.test.LiveProviderTest</live.provider.test.category>
         <test.groups></test.groups>
         <test.excludedGroups>${live.provider.test.category}</test.excludedGroups>
@@ -41,7 +38,6 @@
         <dependency>
             <groupId>io.github.lnyo-cly</groupId>
             <artifactId>ai4j-extension-api</artifactId>
-            <version>${ai4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
@@ -52,23 +48,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -88,7 +73,7 @@
                 <dependency>
                     <groupId>io.github.lnyo-cly</groupId>
                     <artifactId>ai4j-agent</artifactId>
-                    <version>${ai4j.version}</version>
+                    <version>${ai4j-agent.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

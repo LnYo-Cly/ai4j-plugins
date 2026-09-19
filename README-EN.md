@@ -20,9 +20,10 @@ point for users, and no self-managed release pipeline for authors.
 
 ## Plugin index
 
-| Plugin | Extension id | Capabilities | Description | Min ai4j | Latest | Maintainer | Status |
-|---|---|---|---|---|---|---|---|
-| [you-search](plugins/you-search) | `you-search` | tool + command + skill + prompt | You.com web search | 2.4.2 | 0.1.0 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
+| Plugin | Extension id | Tier | Capabilities | Description | Min ai4j | Latest | Maintainer | Status |
+|---|---|---|---|---|---|---|---|---|
+| [dynamic-workflow](plugins/dynamic-workflow) | `dynamic-workflow` | official | tool + command + skill + prompt | Host-mediated dynamic workflow orchestration | 2.4.2 | 0.1.0 | [@LnYo-Cly](https://github.com/LnYo-Cly) | active |
+| [you-search](plugins/you-search) | `you-search` | community | tool + command + skill + prompt | You.com web search | 2.4.2 | 0.1.0 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
 
 > "Min ai4j" is the `ai4j-extension-api` baseline the plugin compiles against — see
 > [Compatibility](#compatibility).
@@ -139,13 +140,10 @@ version**, and each **plugin's version**. A plugin pom pins a released
 
 ## Where plugins live
 
-A deliberate three-tier split, not "official plugins live elsewhere":
-
-| Home | Plugin | Role |
+| Home | What | Role |
 |---|---|---|
-| This repo, `io.github.lnyo-cly.community` | you-search and other community plugins | Community submissions, shared review, unified Central releases |
+| This repo, `io.github.lnyo-cly.community` | Every distributable plugin | `io.github.lnyo-cly` is reserved for the SDK release train; everything this repo publishes uses the `.community` groupId. Maintenance tier lives in the index's Tier column and each pom's `<developers>` |
 | [ai4j](https://github.com/LnYo-Cly/ai4j) reactor | `ai4j-plugin-ask-user` | Official sample, and the conformance regression for `ai4j-extension-api` (compiling in the same reactor validates the contract) |
-| Standalone repo | [`ai4j-plugin-dynamic-workflow`](https://github.com/LnYo-Cly/ai4j-plugin-dynamic-workflow) | Official flagship reference, independent groupId / version / release cadence |
 
 ## Layout
 
@@ -183,8 +181,14 @@ Acceptance bar (enforced in review + CI):
   [naming rules](https://github.com/LnYo-Cly/ai4j/tree/main/docs-site/docs/extending/plugins/plugin-packages.md)
 - Runtime dependencies: `ai4j-extension-api` + JDK only by default. Third-party libraries
   (HTTP clients, JSON parsers, etc.) need explicit justification in the PR
-- A named maintainer who commits to tracking upstream API changes. Plugins whose maintainer
-  goes unresponsive may be marked `deprecated` in the index
+- A named maintainer who commits to tracking upstream API changes — named in the index, the
+  plugin README, and the pom `<developers>`; plugins whose maintainer goes unresponsive may be
+  marked `deprecated` in the index
+- Naming: extension-id / directory / artifactId suffix must be unique repo-wide and carry a
+  provider, product, or implementation qualifier — bare capability domains (`search`,
+  `workflow`, …) are rejected; vendor brand names require vendor affiliation, otherwise use a
+  disambiguated name; plugins in an existing domain coexist via qualified names, and small
+  deltas belong in PRs against the existing plugin
 - The plugin README documents: coordinates, extension id, tool/resource list, required
   env vars, and minimum ai4j version
 
