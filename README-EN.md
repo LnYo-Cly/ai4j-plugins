@@ -11,12 +11,12 @@ The official community plugin index for the [AI4J SDK](https://github.com/LnYo-C
 
 AI4J plugins are ordinary Maven jars discovered through `ServiceLoader` and gated by the
 `ExtensionRegistry` enable / allow / expose contract — **adding a dependency never enables
-a plugin**. Plugins target **any agent host built on AI4J** — `ai4j`, `ai4j-agent`,
-`ai4j-coding`, the Spring Boot starter, and custom agent applications alike — not just the
-official CLI / TUI. This repository is maintained by the AI4J project: submissions are
-reviewed and CI-verified, then released under `io.github.lnyo-cly.community` on Maven
-Central — one discoverable, auditable entry point for users, and no self-managed release
-pipeline for authors.
+a plugin**. The primary audience is **developers' own agent systems built on the AI4J SDKs**
+(`ai4j`, `ai4j-agent`, …) — the official CLI / TUI / Spring Boot starter are just a few of
+the possible host shapes, and a plugin must work in any custom host. This repository is
+maintained by the AI4J project: submissions are reviewed and CI-verified, then released
+under `io.github.lnyo-cly.community` on Maven Central — one discoverable, auditable entry
+point for users, and no self-managed release pipeline for authors.
 
 ## Plugin index
 
@@ -176,7 +176,8 @@ Acceptance bar (enforced in review + CI):
 - Host-agnostic: plugins must not assume the host has a terminal, UI, or interaction surface
   (no `System.console`, GUI, or blocking user prompts). When user input is needed, go through
   the tool/approval mechanism and let the host decide how to render it — a plugin must work
-  equally well in a CLI, a TUI, a Spring Boot service, or a headless worker
+  in any custom host built on the SDK, not just the official CLI / TUI / Spring Boot /
+  headless-worker shapes
 - Secrets come from env vars or host config, never hardcoded; manifest declares `permissions`
 - Tool / command / skill / prompt names follow the
   [naming rules](https://github.com/LnYo-Cly/ai4j/tree/main/docs-site/docs/extending/plugins/plugin-packages.md)
