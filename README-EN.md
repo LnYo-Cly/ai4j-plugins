@@ -5,15 +5,15 @@
 ![JDK 8+](https://img.shields.io/badge/JDK-8%2B-2EA043)
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-io.github.lnyo--cly.community-2E86C1)](https://central.sonatype.com/search?q=io.github.lnyo-cly.community)
 
-Community-maintained extension plugins for the [AI4J SDK](https://github.com/LnYo-Cly/ai4j) — one home, shared review, unified Maven Central releases.
+The official community plugin index for the [AI4J SDK](https://github.com/LnYo-Cly/ai4j) — curated submissions, unified Maven Central releases.
 
 [中文 README](README.md)
 
 AI4J plugins are ordinary Maven jars discovered through `ServiceLoader` and gated by the
 `ExtensionRegistry` enable / allow / expose contract — **adding a dependency never enables
-a plugin**. This repository is the shared home for plugins whose authors prefer not to run
-their own Maven Central publishing: contributions are reviewed here, built in CI, and released
-under the `io.github.lnyo-cly.community` groupId.
+a plugin**. This repository is maintained by the AI4J project: submissions are reviewed and
+CI-verified, then released under `io.github.lnyo-cly.community` on Maven Central — one
+discoverable, auditable entry point for users, and no self-managed release pipeline for authors.
 
 ## Plugin index
 

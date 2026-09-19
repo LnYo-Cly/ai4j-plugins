@@ -5,14 +5,14 @@
 ![JDK 8+](https://img.shields.io/badge/JDK-8%2B-2EA043)
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-io.github.lnyo--cly.community-2E86C1)](https://central.sonatype.com/search?q=io.github.lnyo-cly.community)
 
-[AI4J SDK](https://github.com/LnYo-Cly/ai4j) 的社区插件仓库：统一管理、统一审核、统一发布到 Maven Central。
+AI4J SDK 官方维护的社区插件索引：统一收录、统一审核、统一发布到 Maven Central。
 
 [English README](README-EN.md)
 
 AI4J 插件是普通的 Maven jar：通过 `ServiceLoader` 发现，由 `ExtensionRegistry` 的
-enable / allow / expose 三段门禁控制，**引入依赖不等于启用**。本仓库为不想自行维护
-Maven Central 发布流程的插件作者提供共享的家 —— PR 审核、CI 构建，以
-`io.github.lnyo-cly.community` groupId 统一发版。
+enable / allow / expose 三段门禁控制，**引入依赖不等于启用**。本仓库由 AI4J 项目官方维护：
+插件经 review 收录、CI 验证，以 `io.github.lnyo-cly.community` groupId 统一发布到
+Maven Central —— 对用户是可发现、可审计的插件入口，对作者则无需自建发布管线。
 
 ## 插件目录
 
