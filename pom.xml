@@ -152,6 +152,10 @@
                         <configuration>
                             <executable>${gpg.executable}</executable>
                             <keyname>cly</keyname>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
                         </configuration>
                         <executions>
                             <execution>
