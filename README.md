@@ -22,7 +22,7 @@ Spring Boot starter 只是宿主的几种形态之一，插件必须对任意自
 | 插件 | Extension id | 层级 | 能力 | 说明 | 最低 ai4j | 最新版 | Maintainer | 状态 |
 |---|---|---|---|---|---|---|---|---|
 | [dynamic-workflow](plugins/dynamic-workflow) | `dynamic-workflow` | official | tool + command + skill + prompt | 宿主中介的动态工作流编排 | 2.4.2 | 0.1.0 | [@LnYo-Cly](https://github.com/LnYo-Cly) | active |
-| [you-search](plugins/you-search) | `you-search` | community | tool + command + skill + prompt | You.com 网络搜索 | 2.4.2 | 0.1.0 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
+| [you-search](plugins/you-search) | `you-search` | community | tool + command + skill + prompt | You.com 网络搜索 | 2.4.2 | 0.1.1 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
 
 > 「最低 ai4j」= 插件编译时依赖的 `ai4j-extension-api` 基线，规则见[版本与兼容性](#版本与兼容性)。
 
@@ -36,14 +36,14 @@ Maven：
 <dependency>
   <groupId>io.github.lnyo-cly.community</groupId>
   <artifactId>ai4j-plugin-you-search</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
 Gradle：
 
 ```groovy
-implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.0'
+implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.1'
 ```
 
 ### 2. 启用与暴露

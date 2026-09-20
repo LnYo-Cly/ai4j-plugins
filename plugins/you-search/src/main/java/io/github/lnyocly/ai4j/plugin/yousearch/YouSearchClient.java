@@ -63,7 +63,6 @@ final class YouSearchClient {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("X-API-Key", apiKey.trim());
-            connection.setRequestProperty("Authorization", "Bearer " + apiKey.trim());
             connection.setDoOutput(true);
             byte[] payload = body.getBytes(UTF8);
             connection.setFixedLengthStreamingMode(payload.length);
@@ -88,7 +87,8 @@ final class YouSearchClient {
                         "unparsable_response",
                         "The search endpoint responded but no result fields were recognized.");
             }
-            return YouSearchPayloads.searchResponse(query, Math.min(numResults, hits.size()), hits);
+            int emitted = Math.min(numResults, hits.size());
+            return YouSearchPayloads.searchResponse(query, emitted, hits.subList(0, emitted));
         } catch (IOException ex) {
             return YouSearchPayloads.errorResponse(query,
                     "network_error",

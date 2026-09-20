@@ -88,7 +88,7 @@ public final class YouSearchExtension implements Ai4jExtension {
                 .description("Search the current web with You.com and return titled result snippets with URLs for grounding an answer.")
                 .inputSchema("{\"type\":\"object\",\"properties\":{"
                         + "\"query\":{\"type\":\"string\",\"description\":\"The web search query\"},"
-                        + "\"numResults\":{\"type\":\"string\",\"description\":\"Optional number of results to return, between 1 and 20\"}"
+                        + "\"numResults\":{\"type\":\"integer\",\"description\":\"Optional number of results to return, between 1 and 20\"}"
                         + "},\"required\":[\"query\"]}")
                 .build();
     }

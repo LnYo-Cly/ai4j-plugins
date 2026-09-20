@@ -23,7 +23,7 @@ point for users, and no self-managed release pipeline for authors.
 | Plugin | Extension id | Tier | Capabilities | Description | Min ai4j | Latest | Maintainer | Status |
 |---|---|---|---|---|---|---|---|---|
 | [dynamic-workflow](plugins/dynamic-workflow) | `dynamic-workflow` | official | tool + command + skill + prompt | Host-mediated dynamic workflow orchestration | 2.4.2 | 0.1.0 | [@LnYo-Cly](https://github.com/LnYo-Cly) | active |
-| [you-search](plugins/you-search) | `you-search` | community | tool + command + skill + prompt | You.com web search | 2.4.2 | 0.1.0 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
+| [you-search](plugins/you-search) | `you-search` | community | tool + command + skill + prompt | You.com web search | 2.4.2 | 0.1.1 | [@mouse-value-add](https://github.com/mouse-value-add) | active |
 
 > "Min ai4j" is the `ai4j-extension-api` baseline the plugin compiles against — see
 > [Compatibility](#compatibility).
@@ -38,14 +38,14 @@ Maven:
 <dependency>
   <groupId>io.github.lnyo-cly.community</groupId>
   <artifactId>ai4j-plugin-you-search</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
 Gradle:
 
 ```groovy
-implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.0'
+implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.1'
 ```
 
 ### 2. Enable and expose

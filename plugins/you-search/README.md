@@ -11,7 +11,7 @@ Maintainer: [@mouse-value-add](https://github.com/mouse-value-add) · community 
 <dependency>
   <groupId>io.github.lnyo-cly.community</groupId>
   <artifactId>ai4j-plugin-you-search</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
