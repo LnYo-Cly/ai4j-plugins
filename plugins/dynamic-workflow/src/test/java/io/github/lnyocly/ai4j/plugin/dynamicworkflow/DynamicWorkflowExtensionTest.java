@@ -30,7 +30,7 @@ public class DynamicWorkflowExtensionTest {
 
         Assert.assertEquals("dynamic-workflow", manifest.getId());
         Assert.assertEquals("Dynamic Workflow", manifest.getName());
-        Assert.assertEquals("0.1.0", manifest.getVersion());
+        Assert.assertEquals("1.0.0", manifest.getVersion());
         Assert.assertEquals("ai4j", manifest.getVendor());
         Assert.assertTrue(manifest.hasCapability(ExtensionCapability.TOOL));
         Assert.assertTrue(manifest.hasCapability(ExtensionCapability.COMMAND));
@@ -58,9 +58,9 @@ public class DynamicWorkflowExtensionTest {
                 .exposeTool("workflow");
 
         ExtensionRuntimeSnapshot snapshot = registry.snapshot();
-        ExtensionToolExecutor executor = snapshot.getToolExecutors().get("workflow");
+        ExtensionToolExecutor executor = snapshot.getToolExecutors().get("plugin__dynamic-workflow__workflow");
 
-        String result = executor.execute(new ExtensionToolCall("workflow",
+        String result = executor.execute(new ExtensionToolCall("plugin__dynamic-workflow__workflow",
                 "{\"script\":\"export const meta = { name: 'audit', description: 'Audit' }\\nreturn await agent('scan', { label: 'scan' })\",\"background\":true}"));
 
         Assert.assertTrue(result.contains("\"type\":\"ai4j.dynamic_workflow.request\""));
@@ -95,9 +95,9 @@ public class DynamicWorkflowExtensionTest {
         ExtensionRegistry registry = ExtensionRegistry.of(new DynamicWorkflowExtension())
                 .enable("dynamic-workflow")
                 .exposeTool("workflow");
-        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("workflow");
+        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("plugin__dynamic-workflow__workflow");
 
-        String result = executor.execute(new ExtensionToolCall("workflow", "{bad\njson"));
+        String result = executor.execute(new ExtensionToolCall("plugin__dynamic-workflow__workflow", "{bad\njson"));
 
         Assert.assertTrue(result.contains("\"argumentsRaw\":\"{bad\\njson\""));
         Assert.assertTrue(result.contains("\"status\":\"pending_host_workflow_execution\""));
@@ -108,9 +108,9 @@ public class DynamicWorkflowExtensionTest {
         ExtensionRegistry registry = ExtensionRegistry.of(new DynamicWorkflowExtension())
                 .enable("dynamic-workflow")
                 .exposeTool("workflow");
-        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("workflow");
+        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("plugin__dynamic-workflow__workflow");
 
-        String result = executor.execute(new ExtensionToolCall("workflow", repeat('x', 100000)));
+        String result = executor.execute(new ExtensionToolCall("plugin__dynamic-workflow__workflow", repeat('x', 100000)));
 
         Assert.assertTrue(result.contains("\"argumentsTruncated\":true"));
         Assert.assertTrue(result.length() < 70000);

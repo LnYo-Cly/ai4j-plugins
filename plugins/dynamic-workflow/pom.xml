@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>ai4j-plugin-dynamic-workflow</artifactId>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>ai4j-plugin-dynamic-workflow</name>

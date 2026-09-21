@@ -23,7 +23,7 @@ public final class DynamicWorkflowExtension implements Ai4jExtension {
     public static final String SKILL_NAME = "dynamic-workflow-orchestration";
     public static final String PROMPT_NAME = "dynamic-workflow-script";
 
-    private static final String VERSION = "0.1.0";
+    private static final String VERSION = "1.0.0";
 
     public ExtensionManifest manifest() {
         return ExtensionManifest.builder()

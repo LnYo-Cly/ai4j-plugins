@@ -37,7 +37,7 @@ public final class YouSearchExtension implements Ai4jExtension {
     /** You.com Search API endpoint. Also configurable through {@code ai4j.extensions.you-search.baseUrl}. */
     public static final String DEFAULT_SEARCH_ENDPOINT = "https://api.you.com/api/search";
 
-    private static final String VERSION = "0.1.0";
+    private static final String VERSION = "1.0.0";
 
     public ExtensionManifest manifest() {
         return ExtensionManifest.builder()

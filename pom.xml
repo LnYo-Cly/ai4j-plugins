@@ -43,7 +43,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ai4j-extension-api.version>2.4.2</ai4j-extension-api.version>
+        <ai4j-extension-api.version>2.6.0</ai4j-extension-api.version>
         <junit.version>4.13.2</junit.version>
         <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
         <gpg.executable>gpg</gpg.executable>

@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>ai4j-plugin-you-search</artifactId>
-    <version>0.1.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>ai4j-plugin-you-search</name>
