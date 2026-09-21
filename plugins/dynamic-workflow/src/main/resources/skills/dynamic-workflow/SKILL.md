@@ -2,15 +2,15 @@
 
 Use this Skill only when the user explicitly asks for a workflow, multi-agent fan-out, repository-wide audit, broad research, or another decomposable task that benefits from isolated subagents.
 
-## When to call `workflow`
+## When to call `plugin__dynamic-workflow__workflow`
 
-Call the `workflow` tool when all of these are true:
+Call the `plugin__dynamic-workflow__workflow` tool when all of these are true:
 
 1. The task can be split into independent checks, perspectives, files, or research branches.
 2. The final answer needs synthesis across those branches.
 3. A normal single-agent turn would be slower, less complete, or context-heavy.
 
-Do not call `workflow` for one quick file read, one small edit, or a task that can be answered directly.
+Do not call `plugin__dynamic-workflow__workflow` for one quick file read, one small edit, or a task that can be answered directly. (On ai4j versions before tool namespacing the same tool is exposed as `workflow` — use whichever name is registered in the tool list.)
 
 ## Tool contract
 

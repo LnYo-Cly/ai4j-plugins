@@ -51,7 +51,7 @@ implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.1'
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("you-search")
-        .exposeTool("you_web_search");
+        .exposeTool("plugin__you-search__you_web_search");
 
 Agent agent = Agents.react()
         .modelClient(modelClient)
@@ -67,14 +67,14 @@ Agent agent = Agents.react()
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("you-search")
-        .exposeTool("you_web_search")
+        .exposeTool("plugin__you-search__you_web_search")
         .enable("weather")
-        .exposeTool("weather_query")
+        .exposeTool("plugin__weather__weather_query")
         .enable("db-tools")
-        .exposeTool("db_lookup");
+        .exposeTool("plugin__db-tools__db_lookup");
 ```
 
-未 `enable` 的插件即使在 classpath 上也不会加载；已启用但未 `expose` 的工具对模型不可见。
+工具以 `plugin__<extensionId>__<tool>` 命名空间名暴露给模型；`exposeTool` 仍兼容裸名（唯一后缀匹配），但建议写全名。未 `enable` 的插件即使在 classpath 上也不会加载；已启用但未 `expose` 的工具对模型不可见。
 
 ### Spring Boot
 
@@ -88,8 +88,8 @@ ai:
       - weather
     tools:
       expose:
-        - you_web_search
-        - weather_query
+        - plugin__you-search__you_web_search
+        - plugin__weather__weather_query
 ```
 
 ### CLI 检查
@@ -100,7 +100,7 @@ ai:
 ai4j-cli extension list
 ai4j-cli extension inspect you-search --runtime
 ai4j-cli extension validate you-search
-ai4j-cli extension check you-search --enable --expose-tool you_web_search --strict
+ai4j-cli extension check you-search --enable --expose-tool plugin__you-search__you_web_search --strict
 ai4j-cli extension run --enable you-search --allow-command you-search you-search "latest Java LTS"
 ```
 

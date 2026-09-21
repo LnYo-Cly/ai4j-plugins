@@ -42,7 +42,7 @@ Basic Java usage:
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("dynamic-workflow")
-        .exposeTool("workflow");
+        .exposeTool("plugin__dynamic-workflow__workflow");
 ```
 
 Strict resource activation:
@@ -54,7 +54,7 @@ ExtensionRegistry registry = ExtensionRegistry.discover()
         .allowCommand("workflow")
         .allowSkill("dynamic-workflow-orchestration")
         .allowPrompt("dynamic-workflow-script")
-        .exposeTool("workflow");
+        .exposeTool("plugin__dynamic-workflow__workflow");
 ```
 
 ## Try it

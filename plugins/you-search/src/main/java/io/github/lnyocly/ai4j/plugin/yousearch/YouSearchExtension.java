@@ -18,7 +18,7 @@ import io.github.lnyocly.ai4j.extension.tool.ExtensionToolSpec;
  * <p>Registers a {@code you_web_search} tool that queries the You.com Search API
  * ({@code https://api.you.com/api/search}) so an AI4J agent can ground answers in
  * current web results. The plugin is fully opt-in: hosts must call
- * {@code ExtensionRegistry.discover().enable("you-search").exposeTool("you_web_search")}
+ * {@code ExtensionRegistry.discover().enable("you-search").exposeTool("plugin__you-search__you_web_search")}
  * before the tool becomes visible to any agent. It performs no network activity
  * in {@link #apply(ExtensionContext)}; requests happen only inside the tool
  * executor when the model actually calls the tool.</p>
@@ -71,7 +71,7 @@ public final class YouSearchExtension implements Ai4jExtension {
 
         context.skills().register(ExtensionSkillResource.builder()
                 .name(SKILL_NAME)
-                .description("Workflow for deciding when an AI4J agent should call the you_web_search tool and how to cite results.")
+                .description("Workflow for deciding when an AI4J agent should call the plugin__you-search__you_web_search tool and how to cite results.")
                 .resourcePath("skills/you-search/SKILL.md")
                 .build());
 

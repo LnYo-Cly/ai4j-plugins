@@ -53,7 +53,7 @@ implementation 'io.github.lnyo-cly.community:ai4j-plugin-you-search:0.1.1'
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("you-search")
-        .exposeTool("you_web_search");
+        .exposeTool("plugin__you-search__you_web_search");
 
 Agent agent = Agents.react()
         .modelClient(modelClient)
@@ -70,15 +70,18 @@ and they compose independently:
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("you-search")
-        .exposeTool("you_web_search")
+        .exposeTool("plugin__you-search__you_web_search")
         .enable("weather")
-        .exposeTool("weather_query")
+        .exposeTool("plugin__weather__weather_query")
         .enable("db-tools")
-        .exposeTool("db_lookup");
+        .exposeTool("plugin__db-tools__db_lookup");
 ```
 
-A plugin on the classpath that is not `enable`d is never loaded; a tool that is not
-`expose`d stays invisible to the model even when its plugin is enabled.
+Tools are exposed to the model under `plugin__<extensionId>__<tool>` namespaced ids;
+`exposeTool` still accepts the bare name when it resolves to a unique suffix match, but
+the full id is preferred. A plugin on the classpath that is not `enable`d is never
+loaded; a tool that is not `expose`d stays invisible to the model even when its plugin
+is enabled.
 
 ### Spring Boot
 
@@ -92,8 +95,8 @@ ai:
       - weather
     tools:
       expose:
-        - you_web_search
-        - weather_query
+        - plugin__you-search__you_web_search
+        - plugin__weather__weather_query
 ```
 
 ### CLI inspection
@@ -104,7 +107,7 @@ Audit a plugin before trusting it:
 ai4j-cli extension list
 ai4j-cli extension inspect you-search --runtime
 ai4j-cli extension validate you-search
-ai4j-cli extension check you-search --enable --expose-tool you_web_search --strict
+ai4j-cli extension check you-search --enable --expose-tool plugin__you-search__you_web_search --strict
 ai4j-cli extension run --enable you-search --allow-command you-search you-search "latest Java LTS"
 ```
 
