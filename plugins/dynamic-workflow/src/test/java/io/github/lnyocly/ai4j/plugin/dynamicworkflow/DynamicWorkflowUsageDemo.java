@@ -18,12 +18,12 @@ public final class DynamicWorkflowUsageDemo {
                 .enable("dynamic-workflow")
                 .exposeTool("workflow");
 
-        ExtensionToolExecutor workflow = registry.snapshot().getToolExecutors().get("workflow");
+        ExtensionToolExecutor workflow = registry.snapshot().getToolExecutors().get("plugin__dynamic-workflow__workflow");
         String script = "export const meta = { name: 'demo', description: 'Demo workflow', phases: [{ title: 'Run' }] }\n"
                 + "phase('Run')\n"
                 + "return await agent('Say hello from an AI4J workflow demo.', { label: 'hello' })";
 
-        String result = workflow.execute(new ExtensionToolCall("workflow", "{\"script\":\"" + escape(script) + "\"}"));
+        String result = workflow.execute(new ExtensionToolCall("plugin__dynamic-workflow__workflow", "{\"script\":\"" + escape(script) + "\"}"));
         System.out.println(result);
     }
 

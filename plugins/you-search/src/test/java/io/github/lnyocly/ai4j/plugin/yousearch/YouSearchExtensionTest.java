@@ -55,7 +55,7 @@ public class YouSearchExtensionTest {
     public void toolIsDisabledUntilHostEnablesIt() {
         ExtensionRegistry registry = ExtensionRegistry.of(new YouSearchExtension());
 
-        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("you_web_search");
+        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("plugin__you-search__you_web_search");
 
         Assert.assertNull("you_web_search must not be exposed before enable()/exposeTool()", executor);
     }
@@ -71,8 +71,8 @@ public class YouSearchExtensionTest {
                 .enable("you-search")
                 .exposeTool("you_web_search");
 
-        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("you_web_search");
-        String result = executor.execute(new ExtensionToolCall("you_web_search",
+        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("plugin__you-search__you_web_search");
+        String result = executor.execute(new ExtensionToolCall("plugin__you-search__you_web_search",
                 "{\"query\":\"java 25 release notes\"}"));
 
         Assert.assertTrue(result.contains("\"type\":\"you.web_search.error\""));
@@ -86,8 +86,8 @@ public class YouSearchExtensionTest {
                 .enable("you-search")
                 .exposeTool("you_web_search");
 
-        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("you_web_search");
-        String result = executor.execute(new ExtensionToolCall("you_web_search", "{}"));
+        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("plugin__you-search__you_web_search");
+        String result = executor.execute(new ExtensionToolCall("plugin__you-search__you_web_search", "{}"));
 
         Assert.assertTrue(result.contains("\"type\":\"you.web_search.error\""));
         Assert.assertTrue(result.contains("\"error\":\"missing_query\""));
@@ -99,8 +99,8 @@ public class YouSearchExtensionTest {
                 .enable("you-search")
                 .exposeTool("you_web_search");
 
-        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("you_web_search");
-        String result = executor.execute(new ExtensionToolCall("you_web_search", "{bad\njson"));
+        ExtensionToolExecutor executor = registry.snapshot().getToolExecutors().get("plugin__you-search__you_web_search");
+        String result = executor.execute(new ExtensionToolCall("plugin__you-search__you_web_search", "{bad\njson"));
 
         Assert.assertTrue(result.contains("\"type\":\"you.web_search.error\""));
         Assert.assertTrue(result.contains("\"error\":\"missing_query\""));
