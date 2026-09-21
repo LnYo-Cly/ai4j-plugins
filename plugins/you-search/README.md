@@ -18,7 +18,7 @@ Maintainer: [@mouse-value-add](https://github.com/mouse-value-add) · community 
 ## What It Provides
 
 - Extension id: `you-search`
-- Tool: `you_web_search`
+- Tool: `you_web_search` (exposed to the model as `plugin__you-search__you_web_search`)
 - Command: `you-search`
 - Skill: `you-web-search`
 - Prompt: `you-search-answer`
@@ -48,7 +48,7 @@ Optional overrides (usually unnecessary):
 ```java
 ExtensionRegistry registry = ExtensionRegistry.discover()
         .enable("you-search")
-        .exposeTool("you_web_search");
+        .exposeTool("plugin__you-search__you_web_search");
 ```
 
 The tool then accepts arguments like:
